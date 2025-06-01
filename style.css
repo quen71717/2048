@@ -2,9 +2,15 @@ h1 {
     color: aquamarine;
 }
 
+.grid_container {
+    display: grid;
+    grid-template-columns: repeat(4, 64px);
+    grid-template-rows: repeat(4, 64px);
+    gap: 2px;
+}
 
-
-.item {
-    background-color: antiquewhite;
+.grid_item {    
+    background-color: azure;
+    /* height: ; */
     margin: 5px;
 }
