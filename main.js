@@ -278,7 +278,7 @@ class Game {
     #copy() {
         // let copy = [...this.#field];
 
-                const copy = new Array(this.#FIELD_SIZE)
+        const copy = new Array(this.#FIELD_SIZE)
         for (let i = 0; i < this.#FIELD_SIZE; i++) {
             copy[i] = new Array(this.#FIELD_SIZE);
         }
@@ -416,8 +416,8 @@ class Game {
             case 'ArrowUp':
                 case 'w':
                 this.#moveUp();
-                console.log("MOVED")
-                this.#print(copy);
+                // console.log("MOVED")
+                // this.#print(copy);
                 this.#confirm(copy);
                 // this.#setNumber();
                 this.#render();
