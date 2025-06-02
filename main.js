@@ -98,7 +98,7 @@ class Game {
         // console.log("けした！")
         // console.log(this.#fieldState)
 
-        this.#setNumber();
+        // this.#setNumber();
         // console.log(this.#field);
         // this.#writeFieldAndState(0, 1, 2);
         // this.#writeFieldAndState(0, 2, 2);
@@ -114,7 +114,7 @@ class Game {
 
         // this.#moveDown();
         // this.#moveUp();
-        this.#print();
+        // this.#print();
         console.log(this.#fieldState);
 
         this.#render();
@@ -138,11 +138,13 @@ class Game {
     }
 
     // MARK:print
-    #print() {
-        // console.log(1, 2, 3, 4);
+    #print(field) {
+        let str = "";
         for (let i = 0; i < this.#FIELD_SIZE; i++) {
             // console.log(this.#field[i])
+            str += field[i].join(" ")+"\n"
         }
+        console.log(str);
     }
 
     // MARK:moveRight
@@ -272,6 +274,43 @@ class Game {
 
     }
 
+    // MARK:copy
+    #copy() {
+        // let copy = [...this.#field];
+
+                const copy = new Array(this.#FIELD_SIZE)
+        for (let i = 0; i < this.#FIELD_SIZE; i++) {
+            copy[i] = new Array(this.#FIELD_SIZE);
+        }
+
+        for (let i = 0; i < this.#FIELD_SIZE; i++) {
+            for (let j = 0; j < this.#FIELD_SIZE; j++){
+                copy[i][j] = this.#field[i][j]
+            }
+        }
+        console.log("COPY")
+        this.#print(copy);
+        
+        return copy;
+        
+        // this.#confirm(copy);
+    }
+    
+    #confirm(copy) {
+        
+        console.log("CONFIRM")
+        this.#print(copy);
+        this.#print(this.#field);
+        for (let i = 0; i < this.#FIELD_SIZE; i++) {
+            for (let j = 0; j < this.#FIELD_SIZE; j++) {
+                if (copy[i][j] != this.#field[i][j]) {
+                    return this.#setNumber();
+                }
+            }
+        }
+
+    }
+
     // MARK:setNumber
     // 仮で4を入れるメソッド
     #setNumber() {
@@ -370,13 +409,17 @@ class Game {
     // MARK:handleKeyClick
     #handleKeyClick(event) {
         if (this.#gameState != Game.STATE_INGAME) return;
-
+        this.#print(this.#field);
+        let copy = this.#copy();
         console.log(event.key);
         switch (event.key) {
             case 'ArrowUp':
-            case 'w':
+                case 'w':
                 this.#moveUp();
-                this.#setNumber();
+                console.log("MOVED")
+                this.#print(copy);
+                this.#confirm(copy);
+                // this.#setNumber();
                 this.#render();
                 this.#judgement();
                 break;
@@ -384,7 +427,7 @@ class Game {
             case 'ArrowDown':
             case 's':
                 this.#moveDown();
-                this.#setNumber();
+                this.#confirm(copy);
                 this.#render();
                 this.#judgement();
                 break;
@@ -392,7 +435,7 @@ class Game {
             case 'ArrowLeft':
             case 'a':
                 this.#moveLeft();
-                this.#setNumber();
+                this.#confirm(copy);
                 this.#render();
                 this.#judgement();
                 break;
@@ -400,7 +443,7 @@ class Game {
             case 'ArrowRight':
             case 'd':
                 this.#moveRight();
-                this.#setNumber();
+                this.#confirm(copy);
                 this.#render();
                 this.#judgement();
                 break;
