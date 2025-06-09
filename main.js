@@ -90,7 +90,9 @@ class Game {
         // this.#field[random_x2][random_y2] = 2;
 
         this.#writeFieldAndState(random_x1, random_y1, 2);
+        console.log("追加１")
         this.#writeFieldAndState(random_x2, random_y2, 2);
+        console.log("追加２")
         // this.#setState(2, 3);
         // console.log("てきとうにせっと！")
         // console.log(this.#fieldState)
@@ -114,11 +116,13 @@ class Game {
 
         // this.#moveDown();
         // this.#moveUp();
+        // this.#writeFieldAndState(0, 1, 4)
         // this.#print();
         console.log(this.#fieldState);
 
         this.#render();
-        // console.log(this.#field);
+        console.log(this.#field);
+
 
     }
 
@@ -371,6 +375,8 @@ class Game {
 
         // 可視化Fieldに書く
         this.#field[x][y] = z
+        console.log(x, y, z)
+        console.log(this.#field)
         // Stateに座標書く
         this.#fieldState.push([x, y]);
         console.log(this.#fieldState);
@@ -395,8 +401,10 @@ class Game {
     #render() {
         for (let i = 0; i < this.#FIELD_SIZE; i++) {
             for (let j = 0; j < this.#FIELD_SIZE; j++) {
-                const cell = this.#fieldDOM.childNodes[i * this.#FIELD_SIZE + j];
+                // j + 1にしたら直った
+                const cell = this.#fieldDOM.childNodes[i * this.#FIELD_SIZE + j + 1];
                 if (this.#field[i][j] != 0) {
+                    console.log(i, j, "にいれるよ", cell)
                     cell.innerText = this.#field[i][j];
                 } else {
                     cell.innerText = "";
